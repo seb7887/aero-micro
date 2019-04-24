@@ -3,6 +3,8 @@ const fetch = require('node-fetch');
 
 const { apiEndpoint, headers } = require('../config');
 
+const perPage = 16;
+
 const fetchProducts = async () => {
   const response = await fetch(`${apiEndpoint}/products`, {
     method: 'GET',
@@ -15,7 +17,6 @@ const fetchProducts = async () => {
 
 // Category filter
 // gaming, laptops, phones, tablets, cameras, audio, tv, drones, accesories, home, audio
-const filterByCategory = category => {};
 
 // Sorting
 const higherCostSort = (a, b) => parseInt(b.cost) - parseInt(a.cost);
@@ -36,7 +37,16 @@ const products = async (req, res) => {
     req.query.sort === 'low' && productList.sort(lowerCostSort);
   }
 
-  send(res, 200, { products: productList, total: productList.length });
+  const total = productList.length;
+
+  if (req.query.page) {
+    const page = req.query.page;
+    const begin = page * perPage;
+    const end = begin + perPage;
+    productList = productList.slice(begin, end);
+  }
+
+  send(res, 200, { products: productList, total });
 };
 
 module.exports = products;
