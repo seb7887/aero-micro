@@ -25,14 +25,14 @@ const lowerCostSort = (a, b) => parseInt(a.cost) - parseInt(b.cost);
 const products = async (req, res) => {
   let productList = await fetchProducts();
 
-  if (req.query.category) {
+  if (req.query.category && req.query.category !== 'all') {
     const category = req.query.category;
     productList = productList.filter(product =>
       product.category.toLowerCase().includes(category)
     );
   }
 
-  if (req.query.sort) {
+  if (req.query.sort && req.query.sort !== 'recent') {
     req.query.sort === 'high' && productList.sort(higherCostSort);
     req.query.sort === 'low' && productList.sort(lowerCostSort);
   }
