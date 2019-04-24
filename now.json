@@ -1,0 +1,10 @@
+{
+  "version": 1.0,
+  "name": "aero-micro",
+  "alias": "aero-micro.now.sh",
+  "env": {
+    "NODE_ENV": "production",
+    "PORT": "8080",
+    "API_KEY": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI1Y2I3NzdjYjg0ZDlkOTAwNmM1NmQ0OGUiLCJpYXQiOjE1NTU1Mjc2Mjd9.PzHMBk1iT6XhGXB1-LGGEQiI8HoJlWSvYNbsSguE0Tg"
+  }
+}
