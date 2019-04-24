@@ -13,19 +13,30 @@ const fetchProducts = async () => {
   return products;
 };
 
-const higherCostSort = (a, b) => parseInt(b.cost) - parseInt(a.cost);
+// Category filter
+// gaming, laptops, phones, tablets, cameras, audio, tv, drones, accesories, home, audio
+const filterByCategory = category => {};
 
+// Sorting
+const higherCostSort = (a, b) => parseInt(b.cost) - parseInt(a.cost);
 const lowerCostSort = (a, b) => parseInt(a.cost) - parseInt(b.cost);
 
 const products = async (req, res) => {
-  const productList = await fetchProducts();
+  let productList = await fetchProducts();
+
+  if (req.query.category) {
+    const category = req.query.category;
+    productList = productList.filter(product =>
+      product.category.toLowerCase().includes(category)
+    );
+  }
 
   if (req.query.sort) {
     req.query.sort === 'high' && productList.sort(higherCostSort);
     req.query.sort === 'low' && productList.sort(lowerCostSort);
   }
 
-  send(res, 200, productList);
+  send(res, 200, { products: productList, total: productList.length });
 };
 
 module.exports = products;

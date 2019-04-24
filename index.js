@@ -9,4 +9,5 @@ module.exports = router(
   get('/user/me', me),
   get('/user/points', points),
   get('/products', products),
-  get('/*', notfound));
+  get('/*', notfound)
+);
